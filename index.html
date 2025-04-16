@@ -4,19 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PH-TUBE</title>
+
+  <!-- daisyui and tailwind cdn -->
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <!-- favicon -->
+   <link rel="stylesheet" href="assets/Icon.png">
 </head>
 <body>
-   <!-- daisyui and tailwind cdn -->
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- favicon -->
+   
+            <!-- top nav -->
      <header>
-      <nav class="w-11/12 mx-auto flex justify-between border-b-2 py-4">
-        <div><img src="assets/Logo.png" alt=""></div>
-        <div><button class="btn">Sort By View</button></div>
-        <div><button class="btn bg-orange-700">Blog</button></div>
+      <nav class="w-11/12 mx-auto flex justify-between border-b-2 border-[#17171720] py-5">
+
+        <div><img class="w-[120px]" src="assets/Logo.png" alt=""></div>
+        <div><button class="btn rounded-sm">Sort By View</button></div>
+        <div><button class="btn bg-[#FF1F3D] text-white rounded-sm">Blog</button></div>
 
       </nav>
      </header>
+                     <!-- 2nd top nav(1 static and 3 dynamic button) -->
+     <nav id="category-container" class="py-5 gap-5 flex justify-center">
+           <div>
+            <button class="btn btn-sm bg-gradient-to-r from-[#009432] to-[#A3CB38] text-white">All</button>
+           </div>
+          
+     </nav>
+
+     <script src="script/main.js"></script>
 </body>
 </html>
