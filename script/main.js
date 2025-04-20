@@ -28,7 +28,7 @@ function displayCategory(receivedCategories) {
     //create element
     const categoryDiv = document.createElement('div');
     categoryDiv.innerHTML = `
-  <button onclick=loadCategoryVideos(${cat.category_id}) class="btn btn-sm hover:text-white hover:bg-gradient-to-r from-[#009432] to-[#A3CB38]">${cat.category}</button>
+  <button id="${cat.category_id}" onclick=loadCategoryVideos(${cat.category_id}) class="btn btn-sm hover:text-white hover:bg-gradient-to-r from-[#009432] to-[#A3CB38]">${cat.category}</button>
   `;
     //append element
    categoryContainer.append(categoryDiv)
@@ -137,7 +137,16 @@ function loadCategoryVideos(categoryId) {
 
   fetch(url)
     .then(res => res.json())
-    .then(data=>displayVideos(data.category));
+    .then(data => {
+
+      const clickedbtn = document.getElementById(`${categoryId}`);
+      clickedbtn.classList.add('active')
+      console.log(clickedbtn)
+      displayVideos(data.category);
+
+
+
+    });
     
 }
 
