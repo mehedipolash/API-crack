@@ -16,24 +16,36 @@
             <!-- top nav -->
      <header>
       <nav class="w-11/12 mx-auto flex justify-between border-b-2 border-[#17171720] py-5">
+<div>
+  <img class="w-[120px] bg-gradient-to-r from-[#009432]/30 to-[#A3CB38]/30 rounded-md" src="assets/Logo.png" alt="">
+</div>
 
-        <div><img class="w-[120px] bg-cyan-50" src="assets/Logo.png" alt=""></div>
         <div><button class="btn rounded-sm">Sort By View</button></div>
-        <div><button class="btn bg-[#FF1F3D] text-white rounded-sm">Blog</button></div>
+        <div><button class="btn bg-gradient-to-r from-[#009432] to-[#A3CB38] text-white rounded-sm">Blog</button></div>
 
       </nav>
      </header>
                      <!-- 2nd top nav(1 static and 3 dynamic button) -->
      <nav id="category-container" class="py-5 gap-5 flex justify-center">
            <div>
-            <button class="btn btn-sm bg-gradient-to-r from-[#009432] to-[#A3CB38] text-white">All</button>
+            <button onclick="loadVideos()" class="btn btn-sm bg-gradient-to-r from-[#009432] to-[#A3CB38] text-white">All</button>
            </div>
           
      </nav>
                 <!-- video-container -->
      <section id="video-container" class="w-11/12 mx-auto grid grid-cols-4 gap-5">
+           
+       <div class="flex flex-col col-span-full justify-center items-center py-24">
+             
+             <img class="w-[120px]" src="assets/Icon.png" alt="">
+                               <br>
+             <h1 class="font-bold text-4xl text-center">Oops!! Sorry, There is no
+              <br>  content here</h1>
+                
+           </div>
+       
 
-        
+        </div>
 
      </section>
 
