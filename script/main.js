@@ -78,7 +78,17 @@ function displayVideos(videos) {
 
   videoContainer.innerHTML = ' ';
 
-  
+  if (videos.length == 0) {
+    videoContainer.innerHTML = `<div class="flex flex-col col-span-full justify-center items-center py-24">
+             
+             <img class="w-[120px]" src="assets/Icon.png" alt="">
+                               <br>
+             <h1 class="font-bold text-4xl text-center">Oops!! Sorry, There is no
+              <br>  content here</h1>
+                
+           </div>`;
+    return;
+  }
   
    for (video of videos) {
     const videoCard = document.createElement('div');
