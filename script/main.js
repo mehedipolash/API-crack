@@ -41,10 +41,21 @@ function displayCategory(receivedCategories) {
 
 /* -------------------------------------------------------------------------------- */
                         
-function loadVideos() {
-  fetch('https://openapi.programming-hero.com/api/phero-tube/videos')
+function loadVideos(searchTextfromSearchbar=' ') {
+  // remove previous active button
+  removeActiveClass();
+  showLoader()
+
+  // add active to 'All' button
+  const allBtn = document.getElementById('btn-all');
+  allBtn.classList.add('active');
+
+  // fetch all videos
+  fetch(
+    `https://openapi.programming-hero.com/api/phero-tube/videos?title=${searchTextfromSearchbar}`
+  )
     .then(res => res.json())
-  .then(data=>displayVideos(data.videos))
+    .then(data => displayVideos(data.videos));
 }
 
 
@@ -87,7 +98,9 @@ function displayVideos(videos) {
               <br>  content here</h1>
                 
            </div>`;
+    hideLoader();
     return;
+    
   }
   
    for (video of videos) {
@@ -96,7 +109,9 @@ function displayVideos(videos) {
       <div class="">
 
           <figure class="relative">
-            <img class="w-full h-[170px] object-cover" src="${video.thumbnail}" alt="">
+            <img class="w-full h-[170px] object-cover" src="${
+              video.thumbnail
+            }" alt="">
             <span class="absolute bottom-2 right-2 text-white bg-teal-800 px-2 text-sm rounded-md">3hrs 56 min ago</span>
           </figure>
           
@@ -113,16 +128,40 @@ function displayVideos(videos) {
 
                 <div class="intro">
                      <h2 class="text-lg font-semibold">${video.title}</h2>
-                     <p class="text sm text-[#40407a] flex">${video.authors[0].profile_name}  <img src="https://img.icons8.com/?size=96&id=t6plruOGzvuh&format=png" alt="" class="w-5 h-5"></p>
-                     <p class="text sm text-[#40407a]">${video.others.views} </p>
+                     <p class="text sm text-[#40407a] flex">${
+                       video.authors[0].profile_name
+                     } 
+                     ${
+                       video.authors[0].verified == true
+                         ? `verified<img src="https://img.icons8.com/?size=96&id=t6plruOGzvuh&format=png" alt="" class="w-5 h-5">`
+                         : ` `
+                     }
+
+                      
+                     
+                     
+                     </p>
+                     <p class="text sm text-[#40407a]">${
+                       video.others.views
+                     } </p>
                 </div>
             </div>
+
+             <button onclick="loadVideoDetails('${
+               video.video_id
+             }')" class="btn btn-block bg-gradient-to-r from-blue-400 to-indigo-200 text-gray-800 hover:from-green-500 hover:to-green-300">
+  Details
+</button>
+
+
+
           </div>
     
     
     `;
     videoContainer.append(videoCard);
-    }
+  }
+  hideLoader();
   }
 
 /* -------------------------------------------------------------------------------- */
@@ -134,11 +173,13 @@ function loadCategoryVideos(categoryId) {
  // console.log(categoryId);
   const url = `https://openapi.programming-hero.com/api/phero-tube/category/${categoryId}`;
   console.log(url);
+  showLoader()
 
   fetch(url)
     .then(res => res.json())
     .then(data => {
-
+      removeActiveClass();
+      //no active class now
       const clickedbtn = document.getElementById(`${categoryId}`);
       clickedbtn.classList.add('active')
       console.log(clickedbtn)
@@ -153,8 +194,73 @@ function loadCategoryVideos(categoryId) {
 /* ******************************************************************************** */
 
 
+function removeActiveClass() {
+  const activeButtons = document.getElementsByClassName('active');
+  for (let btn of activeButtons) {
+    btn.classList.remove('active')
+  }
+  console.log(activeButtons);
+  
+}
 
 
+/* ******************************************************************************** */
+
+function loadVideoDetails(videoId) {
+  //console.log(videoId)
+  const url2 = `https://openapi.programming-hero.com/api/phero-tube/video/${videoId}`;
+  fetch(url2)
+    .then(res => res.json())
+    .then(data=>displayVideoDetails(data.video))
+
+}
+
+
+function displayVideoDetails(video) {
+  console.log(video)
+
+  document.getElementById('video_details').showModal();
+  const detailsContainer = document.getElementById('details-container');
+  detailsContainer.innerHTML = `
+    
+<div class="card bg-slate-300 shadow-md">
+  <figure>
+    <img src="${video.thumbnail}" alt="${video.title}" class="h-36 w-full object-cover rounded-t-md" />
+  </figure>
+  <div class="card-body p-3">
+    <h2 class="text-base font-semibold text-slate-800">${video.title}</h2>
+    <p class="text-xs text-gray-700">
+      A card component has a figure and a body with title and description.
+    </p>
+  </div>
+</div>
+
+
+  
+  `;
+}
+
+
+/* ******************************************************************************** */
+
+document.getElementById('search-input').addEventListener('keyup', e => {
+  const input = e.target.value;
+  loadVideos(input); 
+});
+/* ******************************************************************************** */
+
+function showLoader() {
+  document.getElementById('loader').classList.remove('hidden')
+  document.getElementById('video-container').classList.add('hidden')
+}
+
+
+function hideLoader() {
+  document.getElementById('loader').classList.add('hidden');
+  document.getElementById('video-container').classList.remove('hidden');
+}
+
+/* ******************************************************************************** */
 
 
 
